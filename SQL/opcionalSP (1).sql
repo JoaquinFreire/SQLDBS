@@ -1,0 +1,79 @@
+ 
+CREATE TABLE [dbo].[CLIENTES](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[DNI] [nvarchar](50) NOT NULL,
+	[APELLIDO] [nvarchar](500) NULL,
+	[NOMBRE] [nvarchar](500) NULL,
+ CONSTRAINT [PK_CLIENTES] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Cola]    Script Date: 05-07-2022 18:24:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cola](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[NombreCola] [nvarchar](50) NOT NULL,
+	[numero] [int] NOT NULL,
+ CONSTRAINT [PK_Cola] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Turno]    Script Date: 05-07-2022 18:24:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Turno](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[idCola] [int] NOT NULL,
+	[idCliente] [int] NOT NULL,
+	[Numero] [int] NOT NULL,
+	[Tramite] [nvarchar](500) NOT NULL,
+	[FechaCreacion] [date] NOT NULL,
+ CONSTRAINT [PK_Turno] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[CLIENTES] ON 
+GO
+INSERT [dbo].[CLIENTES] ([id], [DNI], [APELLIDO], [NOMBRE]) VALUES (1, N'24522381', N'BONO', N'FERNANDO')
+GO
+INSERT [dbo].[CLIENTES] ([id], [DNI], [APELLIDO], [NOMBRE]) VALUES (2, N'12345678', N'PRUEBA', N'NOMBRE')
+GO
+SET IDENTITY_INSERT [dbo].[CLIENTES] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Cola] ON 
+GO
+INSERT [dbo].[Cola] ([id], [NombreCola], [numero]) VALUES (1, N'CAJA', 1)
+GO
+INSERT [dbo].[Cola] ([id], [NombreCola], [numero]) VALUES (2, N'ATENCION AL PUBLICO', 13)
+GO
+INSERT [dbo].[Cola] ([id], [NombreCola], [numero]) VALUES (3, N'CAJA DE SEGURIDAD', 25)
+GO
+SET IDENTITY_INSERT [dbo].[Cola] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Turno] ON 
+GO
+INSERT [dbo].[Turno] ([id], [idCola], [idCliente], [Numero], [Tramite], [FechaCreacion]) VALUES (1, 1, 1, 1, N'RETIRO DE DINERO', CAST(N'2022-07-05' AS Date))
+GO
+SET IDENTITY_INSERT [dbo].[Turno] OFF
+GO
+ALTER TABLE [dbo].[Turno]  WITH CHECK ADD  CONSTRAINT [FK_Turno_CLIENTES] FOREIGN KEY([idCliente])
+REFERENCES [dbo].[CLIENTES] ([id])
+GO
+ALTER TABLE [dbo].[Turno] CHECK CONSTRAINT [FK_Turno_CLIENTES]
+GO
+ALTER TABLE [dbo].[Turno]  WITH CHECK ADD  CONSTRAINT [FK_Turno_Cola] FOREIGN KEY([idCola])
+REFERENCES [dbo].[Cola] ([id])
+GO
+ALTER TABLE [dbo].[Turno] CHECK CONSTRAINT [FK_Turno_Cola]
+GO

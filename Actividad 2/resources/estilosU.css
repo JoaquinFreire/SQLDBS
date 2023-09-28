@@ -1,0 +1,24 @@
+.contenedor-nav {
+    background-color: green;
+    position: fixed;
+    z-index: 100;
+    margin: 0 auto;
+    text-align: center;
+    top: 0;
+    left: 34%;
+    border-radius: 5%;
+    
+
+}
+.navegacion {
+    text-align: center;
+    color: white !important;
+    padding: 1rem;
+    font-size: 1.5rem;
+    text-decoration: none !important;
+    border-radius:  10%;
+
+}
+.navegacion:hover {
+    background-color: blueviolet;
+}
